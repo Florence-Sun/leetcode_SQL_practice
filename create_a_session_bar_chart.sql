@@ -58,3 +58,12 @@ union
 select '15 or more' as bin, count(1) as total
 from Sessions
 where duration >= 900
+
+--second method:
+SELECT bin, COUNT(*)
+FROM (SELECT duration, CASE(WHEN duration>=0 AND duration<300 THEN '[0-5>'
+			    WHEN duration>=300 AND duration<600 THEN '[5-10>'
+			    WHEN duration>=600 AND duration<900 THEN '[10-15>'
+			    ELSE '15 minutes or more') END) AS bin
+	FROM sessions)
+GROUP BY bin;
