@@ -60,7 +60,7 @@ from Sessions
 where duration >= 900
 
 --second method:
-SELECT bin, COUNT(*)
+SELECT bin, COUNT(*) AS total
 FROM (SELECT duration, CASE(WHEN duration>=0 AND duration<300 THEN '[0-5>'
 			    WHEN duration>=300 AND duration<600 THEN '[5-10>'
 			    WHEN duration>=600 AND duration<900 THEN '[10-15>'
