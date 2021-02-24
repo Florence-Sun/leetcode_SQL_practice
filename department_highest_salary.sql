@@ -37,3 +37,13 @@ WHERE (departmentid, salary) IN
         (SELECT departmentid, MAX(salary)
          FROM employee
          GROUP BY departmentid);
+         
+--second method:
+SELECT e3.department AS department, e1.name AS employee, e1.salary AS salary
+FROM employee e1
+INNER JOIN (SELECT d.name AS department, MAX(e2.salary) AS maxsalary
+	    FROM employee e2
+	    LEFT JOIN department d
+	    ON e2.departmentid=d.id
+	    GROUP BY d.name) AS e3
+ON e1.salary=e3.maxsalary;
